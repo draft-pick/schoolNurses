@@ -1,0 +1,21 @@
+{% include 'base.html' %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <div class="container">
+            <div class="mt-5">
+                <div class="nav-right">
+                    <a href="{% url 'student_new' %}">+ Открыть новый период</a>
+                </div>
+                {% for p in period %}
+                    <div class="col-12 col-md-4 offset-md-4">
+                        <div class="card p-3">
+                            <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        Вы не авторизированны
+    {% endif %}
+{% endblock %}

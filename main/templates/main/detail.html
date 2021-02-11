@@ -1,0 +1,10 @@
+{% include 'base.html' %}
+{% block content %}
+    <h3>{{ students.surname }}</h3>
+    <h3>{{ students.name }}</h3>
+    <h3>{{ students.patronymic }}</h3>
+    <h3>{{ students.birthday }}</h3>
+    <div>
+    <a href='{% url 'student_edit' students.pk %}'>+ Изменить</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <div class="container">
+            <div class="mt-5">
+                <div class="nav-right">
+                    <a href="{% url 'student_new' %}">+ Добавить</a>
+                </div>
+                {% for s in student %}
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><a href="{{ s.get_absolute_url }}"> {{ s.surname }}</a></td>
+                            <td>{{ s.name }}</td>
+                            <td>{{ s.patronymic }}</td>
+                            <td>{{ s.birthday }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+            Вы не авторизированны
+    {% endif %}
+{% endblock %}
