@@ -7,7 +7,7 @@ class Period(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='Активный')
 
     def get_absolute_url(self):
-        return reverse('period_detail', args=[str(self.id)])
+        return reverse('view_period', kwargs={"period_id": self.pk})
 
 
 class Students(models.Model):

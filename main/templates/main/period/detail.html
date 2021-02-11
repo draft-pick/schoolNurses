@@ -1,2 +1,24 @@
 {% include 'base.html' %}
-{{ period.title}}
+<div class="container">
+    <h3>{{ period_item.title }}</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Отчество</th>
+            <th scope="col">Дата рождения</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for st in students_item %}
+            <tr>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.surname }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.name }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.patronymic }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.birthday }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
