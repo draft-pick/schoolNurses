@@ -1,18 +1,73 @@
 {% include 'base.html' %}
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb lighten-4">
+            <li class="breadcrumb-item active">Главная</li>
+        </ol>
+    </nav>
+</div>
 {% block content %}
     {% if request.user.is_authenticated %}
         <div class="container">
             <div class="mt-5">
-                <div class="nav-right">
-                    <a href="{% url 'student_new' %}">+ Открыть новый период</a>
-                </div>
-                {% for p in period %}
-                    <div class="col-12 col-md-4 offset-md-4">
-                        <div class="card p-3">
-                            <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="list-group-flush">
+                            <div class="list-group-item">
+                                <a href="{% url 'student_new' %}">
+                                    <p class="mb-0"><i
+                                            class="far fa-calendar-plus fa-2x mr-4 mr-4 purple p-3 white-text rounded"
+                                            aria-hidden="true"></i>Открыть новый период</p>
+                                </a>
+                            </div>
+                            <div class="list-group-item">
+                                <p class="mb-0"><i class="fas fa-archive fa-2x mr-4 mr-4 red p-3 white-text rounded"
+                                                   aria-hidden="true"></i>Посмотреть архив</p>
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
+                    <div class="col-12 col-md-8">
+                        <div class="row">
+                            {% for p in period %}
+                                <div class="col-12 col-md-6">
+                                    <a href="{{ p.get_absolute_url }}">
+                                        <div class="card">
+                                            <div class="view overlay">
+                                                <img class="card-img-top"
+                                                     src="https://i.picsum.photos/id/1032/2880/1800.jpg?hmac=5SLBdyPZBMyr5IBkIRfffZV10bP87Y7RrxVZX1vCefA"
+                                                     alt="Card image cap">
+                                                <div class="mask rgba-white-slight"></div>
+                                            </div>
+                                            <div class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3"><i
+                                                    class="fas fa-chevron-right pl-1"></i></div>
+                                            <div class="card-body">
+                                                <h4 class="card-title">{{ p.title }}</h4>
+                                            </div>
+                                            <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
+                                                <ul class="list-unstyled list-inline font-small">
+                                                    <li class="list-inline-item pr-2 white-text"><i
+                                                            class="far fa-clock pr-1"></i>{{ p.date }}
+                                                    </li>
+
+                                                    <li class="list-inline-item pr-2">
+                                                        <div class="white-text"><i
+                                                                class="far fa-comments pr-1"></i>
+
+                                                            {% for question in questions %}
+                                                                {{ question.number_of_period }}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     {% else %}

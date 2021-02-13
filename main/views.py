@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Count
 from django.views.generic import ListView, DetailView, UpdateView
 from django.views.generic.edit import CreateView
 from .models import *
@@ -8,14 +9,15 @@ from django.http import HttpResponse
 from openpyxl import Workbook, load_workbook
 
 
-
 def main(request):
-    student = Students.objects.all()
+    student = Students.objects.all().count()
     period = Period.objects.all()
+    questions = Period.objects.annotate(number_of_period=Count('period'))
     context = {
         'title': 'Главная страница',
         'student': student,
         'period': period,
+        'questions': questions,
     }
     return render(request, 'main/index.html', context=context)
 

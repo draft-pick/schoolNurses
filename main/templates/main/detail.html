@@ -1,12 +1,21 @@
 {% include 'base.html' %}
 {% block content %}
-    <h3>Фамилия: {{ students.surname }}</h3>
-    <h3>Имя: {{ students.name }}</h3>
-    <h3>Отчество: {{ students.patronymic }}</h3>
-    <h3>Пол: {{ students.sex }}</h3>
-    <h3>Дата рождения: {{ students.birthday }}</h3>
-    <h3>СНИЛС: {{ students.snils }}</h3>
-    <div>
-    <a href='{% url 'student_edit' students.pk %}'>+ Изменить</a>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb lighten-4">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item">{{ period_item.title }}</li>
+                <li class="breadcrumb-item">{{ students.name }}</li>
+            </ol>
+        </nav>
+        <h3>Фамилия: {{ students.surname }}</h3>
+        <h3>Имя: {{ students.name }}</h3>
+        <h3>Отчество: {{ students.patronymic }}</h3>
+        <h3>Пол: {{ students.sex }}</h3>
+        <h3>Дата рождения: {{ students.birthday }}</h3>
+        <h3>СНИЛС: {{ students.snils }}</h3>
+        <div>
+            <a href='{% url 'student_edit' students.pk %}'>+ Изменить</a>
+        </div>
     </div>
 {% endblock %}

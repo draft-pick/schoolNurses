@@ -1,5 +1,11 @@
 {% include 'base.html' %}
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb lighten-4">
+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+            <li class="breadcrumb-item">{{ period_item.title }}</li>
+        </ol>
+    </nav>
     <h3>{{ period_item.title }}</h3>
     <div class="nav-right">
         <a href="{% url 'student_new' %}">+ Добавить новую запись</a>

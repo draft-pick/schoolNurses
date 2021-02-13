@@ -4,6 +4,7 @@ from django.urls import reverse
 
 class Period(models.Model):
     title = models.CharField(max_length=300, verbose_name='Период')
+    date = models.DateField(null=True, verbose_name='Дата обучения')
     is_active = models.BooleanField(default=True, verbose_name='Активный')
 
     def get_absolute_url(self):
