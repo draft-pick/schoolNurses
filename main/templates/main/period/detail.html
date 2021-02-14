@@ -6,9 +6,24 @@
             <li class="breadcrumb-item">{{ period_item.title }}</li>
         </ol>
     </nav>
-    <h3>{{ period_item.title }}</h3>
-    <div class="nav-right">
-        <a href="{% url 'student_new' %}">+ Добавить новую запись</a>
+    <div class="text-center">
+        <h3>{{ period_item.title }}</h3>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <a href="{% url 'student_new' %}">
+                <div class="text-right"><button type="button" class="btn btn-info btn-rounded">
+                    <i class="fas fa-plus"></i> Добавить запись
+                </button></div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6">
+            <a href="{% url 'my_print' %}">
+                <button type="button" class="btn btn-info btn-rounded">
+                    <i class="fas fa-print"></i> Вывод на печать
+                </button>
+            </a>
+        </div>
     </div>
     <table class="table table-hover">
         <thead>

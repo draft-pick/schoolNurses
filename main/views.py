@@ -144,3 +144,21 @@ def export_movies_to_xlsx(request, period_id):
     workbook.save(response)
 
     return response
+
+
+def my_print(request):
+    from openpyxl import Workbook
+    from openpyxl.writer.excel import save_virtual_workbook
+    import datetime
+
+    wb = Workbook()
+    ws = wb.active
+    ws['A1'] = 42
+    ws.append([1, 2, 3])
+    ws['A2'] = datetime.datetime.now()
+    print(save_virtual_workbook(wb))
+
+    print("Content-Type: application/vnd.ms-excel")
+    print("Content-Disposition: attachment; filename=test.xlsx")
+
+    return request
