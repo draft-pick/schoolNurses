@@ -7,6 +7,8 @@ from datetime import datetime
 from datetime import timedelta
 from django.http import HttpResponse
 from openpyxl import Workbook, load_workbook
+import openpyxl
+from openpyxl import load_workbook
 
 
 def main(request):
@@ -25,38 +27,6 @@ def main(request):
 def view_period(request, period_id):
     period_item = Period.objects.get(pk=period_id)
     students_item = Students.objects.all().filter(keyPeriod=period_id)
-    response = HttpResponse(
-        content_type='application/vnd.openmosix-officiated.spreadsheet.sheet',
-    )
-    response['Content-Disposition'] = 'attachment; filename={date}-movies.xlsx'.format(
-        date=datetime.now().strftime('%Y-%m-%d'),
-    )
-    workbook = Workbook()
-    worksheet = workbook.active
-    worksheet.title = 'Movies'
-    columns = [
-        'ФАМИЛИЯ',
-        'ИМЯ',
-        'ОТЧЕСТВО',
-        'ДАТА РОЖДЕНИЯ',
-    ]
-    row_num = 1
-    for col_num, column_title in enumerate(columns, 1):
-        cell = worksheet.cell(row=row_num, column=col_num)
-        cell.value = column_title
-    for movie in students_item:
-        row_num += 1
-        row = [
-            movie.surname,
-            movie.name,
-            movie.patronymic,
-            movie.birthday,
-        ]
-        for col_num, cell_value in enumerate(row, 1):
-            cell = worksheet.cell(row=row_num, column=col_num)
-            cell.value = cell_value
-    workbook.save("filename.xlsx")
-
     context = {
         'title': period_item.title,
         'period_item': period_item,
@@ -162,3 +132,40 @@ def my_print(request):
     print("Content-Disposition: attachment; filename=test.xlsx")
 
     return request
+
+
+def print_me(request, period_id):
+    period_item = Period.objects.get(pk=period_id)
+    students_item = Students.objects.all().filter(keyPeriod=period_id)
+    workbook = Workbook()
+    worksheet = workbook.active
+    worksheet.title = 'Movies'
+    columns = [
+        'ФАМИЛИЯ',
+        'ИМЯ',
+        'ОТЧЕСТВО',
+        'ДАТА РОЖДЕНИЯ',
+    ]
+    row_num = 1
+    for col_num, column_title in enumerate(columns, 1):
+        cell = worksheet.cell(row=row_num, column=col_num)
+        cell.value = column_title
+    for movie in students_item:
+        row_num += 1
+        row = [
+            movie.surname,
+            movie.name,
+            movie.patronymic,
+            movie.birthday,
+        ]
+        for col_num, cell_value in enumerate(row, 1):
+            cell = worksheet.cell(row=row_num, column=col_num)
+            cell.value = cell_value
+    workbook.save("media/list.xlsx")
+    context = {
+        'title': 'Печать',
+        'period_item': period_item,
+        'students_item': students_item,
+    }
+    return render(request, 'main/period/print.html', context=context)
+
