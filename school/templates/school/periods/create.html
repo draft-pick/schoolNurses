@@ -1,0 +1,9 @@
+{% load sitetree %}
+{% include 'inc/_breadcrumbs.html' %}
+{% block contentPage %}
+        <h1>Открытие нового периода обучения</h1>
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Создать"/>
+        </form>
+{% endblock %}

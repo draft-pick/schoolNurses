@@ -1,0 +1,12 @@
+{% include 'base.html' %}
+{% block content %}
+        <h3>Фамилия: {{ students.surname }}</h3>
+        <h3>Имя: {{ students.name }}</h3>
+        <h3>Отчество: {{ students.patronymic }}</h3>
+        <h3>Пол: {{ students.sex }}</h3>
+        <h3>Дата рождения: {{ students.birthday }}</h3>
+        <h3>СНИЛС: {{ students.snils }}</h3>
+        <div>
+            <a href='{% url 'student_edit' students.pk %}'>+ Изменить запись</a>
+        </div>
+{% endblock %}

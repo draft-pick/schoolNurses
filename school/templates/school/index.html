@@ -1,4 +1,46 @@
+{% extends 'base.html' %}
 {% load sitetree %}
-{% include 'base.html' %}
+{% block content %}
+    <div class="text-center"><h4>Активные периоды</h4></div>
+    <div class="col-12 col-md-8">
+        <div class="row">
+            {% for p in periods %}
+                <div class="col-12 col-md-4">
+                    <a href="{{ p.get_absolute_url }}">
+                        <div class="card">
+                            <div class="view overlay">
+                                <img class="card-img-top"
+                                     src="https://i.picsum.photos/id/1032/2880/1800.jpg?hmac=5SLBdyPZBMyr5IBkIRfffZV10bP87Y7RrxVZX1vCefA"
+                                     alt="Card image cap">
+                                <div class="mask rgba-white-slight"></div>
+                            </div>
+                            <div class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3"><i
+                                    class="fas fa-chevron-right pl-1"></i></div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ p.title }}</h4>
+                            </div>
+                            <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
+                                <ul class="list-unstyled list-inline font-small">
+                                    <li class="list-inline-item pr-2 white-text"><i
+                                            class="far fa-clock pr-1"></i>{{ p.date }}
+                                    </li>
 
-{% sitetree_menu from "mainMenu" include "trunk,topmenu" template "sitetree/menu_bootstrap4.html" %}
+                                    <li class="list-inline-item pr-2">
+                                        <div class="white-text"><i
+                                                class="far fa-comments pr-1"></i>
+                                            {% for count in students_count %}
+                                                {{ count.number_of_period }}
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

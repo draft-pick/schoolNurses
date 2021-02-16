@@ -1,9 +1,14 @@
-<div class="container mt-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb lighten-4">
-            <li class="breadcrumb-item"><a class="black-text" href="/">Главная</a></li>
-            <li class="breadcrumb-item"><a class="black-text" href="#">Library</a></li>
-            <li class="breadcrumb-item active">Data</li>
-        </ol>
-    </nav>
-</div>
+{% extends 'base.html' %}
+{% load sitetree %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <div class="container">
+            {% sitetree_breadcrumbs from "mainMenu" template "sitetree/breadcrumbs_bootstrap4.html" %}
+            {% block contentPage %}
+
+            {% endblock %}
+        </div>
+    {% else %}
+        Вы не авторизированны
+    {% endif %}
+{% endblock %}

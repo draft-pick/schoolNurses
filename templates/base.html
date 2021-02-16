@@ -1,4 +1,5 @@
 {% load static %}
+{% load sitetree %}
 <!doctype html>
 <html lang="ru">
 <head>
@@ -57,9 +58,20 @@
     </div>
 </nav>
 <!--/.Navbar -->
-{% block content %}
+{% if request.user.is_authenticated %}
+    <div class="container">
+        {% block content %}
+            <div class="container">
+                {% sitetree_breadcrumbs from "mainMenu" template "sitetree/breadcrumbs_bootstrap4.html" %}
+            </div>
+        {% endblock %}
+    </div>
+{% else %}
+    <div class="container">
+    {% block login %}
+    {% endblock %}
 
-{% endblock %}
+{% endif %}
 
 
 <!-- JQuery -->

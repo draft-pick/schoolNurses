@@ -1,0 +1,10 @@
+{% include 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Создать новую запись</h1>
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Создать"/>
+        </form>
+    </div>
+{% endblock %}
