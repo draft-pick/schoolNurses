@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load sitetree %}
 {% block content %}
-    <div class="text-center"><h4>Активные периоды</h4></div>
-    <div class="col-12 col-md-8">
+    <div class="text-center mt-3">
+        <button type="button" class="btn btn-info btn-rounded">Активные периоды</button>
+    </div>
+    <div class="col-12">
         <div class="row">
             {% for p in periods %}
                 <div class="col-12 col-md-4">
@@ -42,5 +44,6 @@
             {% endfor %}
         </div>
     </div>
-
+    <hr>
+{% sitetree_menu from "leftMenu" include "trunk" template "sitetree/menu.html" %}
 {% endblock %}
