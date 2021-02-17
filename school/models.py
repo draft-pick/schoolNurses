@@ -42,6 +42,7 @@ class Students(models.Model):
     def get_absolute_url(self):
         return reverse('student_open', args=[str(self.id)])
 
+
     class Meta:
         verbose_name = 'Студенты'
         verbose_name_plural = 'Студенты'

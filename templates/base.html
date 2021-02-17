@@ -61,16 +61,15 @@
 {% if request.user.is_authenticated %}
     <div class="container">
         {% block content %}
-            <div class="container">
-                {% sitetree_breadcrumbs from "mainMenu" template "sitetree/breadcrumbs_bootstrap4.html" %}
-            </div>
+            {% sitetree_breadcrumbs from "mainMenu" template "sitetree/breadcrumbs_bootstrap4.html" %}
         {% endblock %}
-    </div>
-{% else %}
-    <div class="container">
-    {% block login %}
-    {% endblock %}
 
+        {% else %}
+        <div class="container">
+            {% block login %}
+            {% endblock %}
+        </div>
+    </div>
 {% endif %}
 
 

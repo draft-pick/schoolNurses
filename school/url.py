@@ -9,5 +9,7 @@ urlpatterns = [
     path('period/<int:pk>/', PeriodDetailView.as_view(), name='period_detail'),
     path('period/open/<int:period_id>/', view_period, name='view_period'),
     path('students/add/', StudentCreateView.as_view(), name='student_add'),
-    path('students/<int:pk>/', StudentDetailView.as_view(), name='student_open'),
+    path('period/open/students/<int:pk>/', StudentDetailView.as_view(), name='student_open'),
+    path('period/export_xlsx/<int:period_id>/', export_xlsx, name='export_xlsx'),
+    path('period/student/<int:pk>/edit/', StudentUpdateView.as_view(), name='student_editor'),
 ]

@@ -3,6 +3,7 @@ from django.db.models import Count
 from .models import *
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
+from openpyxl import Workbook, load_workbook
 
 
 def home(request):
@@ -47,3 +48,47 @@ class StudentCreateView(CreateView):
 class StudentDetailView(DetailView):
     model = Students
     template_name = 'school/students/detail.html'
+
+
+class StudentUpdateView(UpdateView):
+    model = Students
+    template_name = 'school/students/edit.html'
+    fields = ['keyPeriod', 'surname', 'name', 'patronymic', 'sex', 'birthday', 'snils']
+
+
+def export_xlsx(request, period_id):
+    period_item = Period.objects.get(pk=period_id)
+    students_item = Students.objects.all().filter(keyPeriod=period_id)
+    workbook = Workbook()
+    worksheet = workbook.active
+    worksheet.title = 'Students'
+    columns = [
+        'ФАМИЛИЯ',
+        'ИМЯ',
+        'ОТЧЕСТВО',
+        'ДАТА РОЖДЕНИЯ',
+        'ПОЛ',
+    ]
+    row_num = 1
+    for col_num, column_title in enumerate(columns, 1):
+        cell = worksheet.cell(row=row_num, column=col_num)
+        cell.value = column_title
+    for students in students_item:
+        row_num += 1
+        row = [
+            students.surname,
+            students.name,
+            students.patronymic,
+            students.birthday,
+            students.sex
+        ]
+        for col_num, cell_value in enumerate(row, 1):
+            cell = worksheet.cell(row=row_num, column=col_num)
+            cell.value = cell_value
+    workbook.save("media/list.xlsx")
+    context = {
+        'title': 'Печать',
+        'period_item': period_item,
+        'students_item': students_item,
+    }
+    return render(request, 'main/period/print.html', context=context)
