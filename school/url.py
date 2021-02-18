@@ -11,5 +11,6 @@ urlpatterns = [
     path('students/add/', StudentCreateView.as_view(), name='student_add'),
     path('period/open/students/<int:pk>/', StudentDetailView.as_view(), name='student_open'),
     path('period/export_xlsx/<int:period_id>/', export_xlsx, name='export_xlsx'),
+    path('period/student/<int:pk>/pr_docx/', export_docx, name='export_docx'),
     path('period/student/<int:pk>/edit/', StudentUpdateView.as_view(), name='student_editor'),
 ]

@@ -4,6 +4,7 @@ from .models import *
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView, DetailView, UpdateView
 from openpyxl import Workbook, load_workbook
+from docxtpl import DocxTemplate
 
 
 def home(request):
@@ -92,3 +93,17 @@ def export_xlsx(request, period_id):
         'students_item': students_item,
     }
     return render(request, 'main/period/print.html', context=context)
+
+
+def export_docx(request, pk):
+    student_item = Students.objects.filter(pk=pk)
+    for student in student_item:
+        doc = DocxTemplate("media/temp_doc.docx")
+        context = {
+            'surname': student.surname,
+            'name': student.name,
+            'patronymic': student.patronymic,
+        }
+        doc.render(context)
+        doc.save("media/generated_doc.docx")
+    return render(request, 'school/students/print_docx.html')
