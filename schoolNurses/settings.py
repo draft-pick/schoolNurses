@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'sitetree',
     'main.apps.MainConfig',
     'school.apps.SchoolConfig',
+    'mainDir.apps.MaindirConfig',
 ]
 
 MIDDLEWARE = [

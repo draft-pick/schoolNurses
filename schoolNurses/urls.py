@@ -23,6 +23,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('main.url')),
     path('school/', include('school.url')),
+    path('mainDir/', include('mainDir.url')),
+    
 
 ]
 
