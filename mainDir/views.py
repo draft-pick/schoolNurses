@@ -18,7 +18,7 @@ def home(request):
     return render(request, 'mainDir/index.html', context=context)
 
 
-def album_add(request):
+def period_add(request):
     if request.method == "GET":
         form = PeriodsForm()
         return render(request, 'mainDir/periods/create.html', {'form': form})
@@ -27,7 +27,9 @@ def album_add(request):
         if form.is_valid():
             form.save()
             return HttpResponse("Saved.")
-        return render(request, 'mainDir/periods/create.html', {'form': form})
+        return render(request, 'mainDir/periods/create.html', {'form': form,
+                                                               'title': 'Добавить новый период',
+                                                               })
 
 
 class PeriodCreateView(CreateView):

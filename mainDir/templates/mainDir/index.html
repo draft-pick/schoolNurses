@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load sitetree %}
 {% block content %}
-    <a href="{% url 'album_add' %}">+ Открыть новый период обучения</a>
+    <a href="{% url 'period_add' %}">+ Открыть новый период обучения</a>
     <div class="text-center mt-3">
         <button type="button" class="btn btn-info btn-rounded">Активные периоды</button>
     </div>
@@ -24,13 +24,13 @@
                             </div>
                             <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
                                 <ul class="list-unstyled list-inline font-small">
-                                    <li class="list-inline-item pr-2 white-text"><i
-                                            class="far fa-clock pr-1"></i>{{ p.date }}
+                                    <li class="list-inline-item pr-2 white-text">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        {{ p.start_date|date:"d.m" }} - {{ p.end_date|date:"d.m.y" }}
                                     </li>
-
+                                    <br>
                                     <li class="list-inline-item pr-2">
-                                        <div class="white-text"><i
-                                                class="far fa-comments pr-1"></i>
+                                        <div class="white-text"><i class="fas fa-users"></i>
                                             {% for count in students_count %}
                                                 {{ count.number_of_period }}
                                             {% endfor %}
