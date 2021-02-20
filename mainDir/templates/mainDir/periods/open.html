@@ -1,0 +1,53 @@
+{% include 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="text-center">
+        <h3>{{ period_item.title }}</h3>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <a href="{% url 'newStudent' period_item.pk%}">
+                <div class="text-right"><button type="button" class="btn btn-info btn-rounded">
+                    <i class="fas fa-plus"></i> Добавить запись
+                </button></div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6">
+            <a href="{% url 'home_view' %}">
+                <div class="text-right"><button type="button" class="btn btn-info btn-rounded">
+                    <i class="fas fa-plus"></i> Добавить запись
+                </button></div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6">
+            <a href="{% url 'export_xlsx' period_item.pk %}">
+                <button type="button" class="btn btn-info btn-rounded">
+                    <i class="fas fa-print"></i> Вывод на печать
+                </button>
+            </a>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Отчество</th>
+            <th scope="col">Дата рождения</th>
+            <th scope="col">Пол</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for st in students_item %}
+            <tr>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.surname }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.name }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.patronymic }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.birthday }}</a></td>
+                <td><a href="{{ st.get_absolute_url }}">{{ st.sex }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

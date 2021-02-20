@@ -15,7 +15,7 @@ class Periods(models.Model):
     is_active = models.CharField(max_length=1, choices=ACTIVE_CHOICES, verbose_name='Активный?')
 
     def get_absolute_url(self):
-        return reverse('view_period', kwargs={"period_id": self.pk})
+        return reverse('view_school', kwargs={"school_id": self.pk})
 
     def __str__(self):
         return self.title
@@ -32,3 +32,37 @@ class PeriodsForm(forms.ModelForm):
     class Meta:
         model = Periods
         fields = ['title', 'is_active', 'start_date', 'end_date']
+
+
+def number_school(school_id):
+    return school_id
+
+
+class Students(models.Model):
+    keySchool = models.ForeignKey(Periods, on_delete=models.CASCADE, related_name='school',
+                                  verbose_name='Школа', default=number_school)
+    surname = models.CharField(max_length=300, verbose_name='Фамилия')
+    name = models.CharField(max_length=300, verbose_name='Имя')
+    patronymic = models.CharField(max_length=300, verbose_name='Отчество')
+    birthday = models.DateField(verbose_name='Дата рождения')
+    SEX = (
+        ('М', 'Мужской'),
+        ('Ж', 'Женский'),
+    )
+    sex = models.CharField(max_length=1, choices=SEX, verbose_name='Пол')
+    snils = models.CharField(max_length=100, verbose_name='СНИЛС')
+    contract_date = models.DateField(verbose_name='Дата контракта')
+    contract_number = models.CharField(max_length=300, verbose_name='Номер контракта')
+
+    def __str__(self):
+        return self.surname
+
+    def get_absolute_url(self):
+        return reverse('student_open', args=[str(self.id)])
+
+    class Meta:
+        verbose_name = 'Студенты'
+        verbose_name_plural = 'Студенты'
+
+
+
