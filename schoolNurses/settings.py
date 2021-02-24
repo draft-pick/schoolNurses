@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sitetree',
+    'import_export',
     'main.apps.MainConfig',
     'school.apps.SchoolConfig',
     'mainDir.apps.MaindirConfig',

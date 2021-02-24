@@ -40,7 +40,7 @@ def number_school(school_id):
 
 class Students(models.Model):
     keySchool = models.ForeignKey(Periods, on_delete=models.CASCADE, related_name='school',
-                                  verbose_name='Школа', default=number_school)
+                                  verbose_name='Школа')
     surname = models.CharField(max_length=300, verbose_name='Фамилия')
     name = models.CharField(max_length=300, verbose_name='Имя')
     patronymic = models.CharField(max_length=300, verbose_name='Отчество')

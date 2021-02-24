@@ -2,12 +2,8 @@ from django import forms
 from .models import *
 
 
-def number_school(school_id):
-    return school_id
-
-
 class StudentsForm(forms.Form):
-    keySchool = forms.CharField(max_length=300, label='Фамилия', initial=number_school(school_id=1))
+    keySchool = forms.CharField(max_length=300, label='Фамилия')
     surname = forms.CharField(max_length=300, label='Фамилия')
     name = forms.CharField(max_length=300, label='Имя')
     patronymic = forms.CharField(max_length=300, label='Отчество')
