@@ -52,6 +52,11 @@ class StudentCreateView(CreateView):
               'contract_number']
 
 
+class StudentDetailView(DetailView):
+    model = Students
+    template_name = 'mainDir/students/detail.html'
+
+
 def new_student(request, school_id):
     period_item = Periods.objects.get(pk=school_id)
     initial_dict = {
