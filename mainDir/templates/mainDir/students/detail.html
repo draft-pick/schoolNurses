@@ -18,16 +18,16 @@
                         <h2>Отчество: {{ students.patronymic }}</h2>
                         <h2>Дата рождения: {{ students.birthday }}</h2>
                         <h2>Пол: {{ students.sex }}</h2>
-                        <h2>Дата контракта: {{ students.contract_number }}</h2>
-                        <h2>Номер контракта: {{ students.contract_date }}</h2>
+                        <h2>Дата контракта: {{ students.contract_date }}</h2>
+                        <h2>Номер контракта: {{ students.contract_number }}</h2>
 
-                        <a href='{% url 'student_editor' students.pk %}'>
+                        <a href='{% url 'edit_student' students.pk %}'>
                         <button type="button" class="btn btn-orange btn-rounded mx-0">
                             <i class="fas fa-user-edit"></i> Изменить
                         </button>
                         </a>
 
-                        <a href='{% url 'export_docx' students.pk %}'>
+                        <a href='{% url 'print_docx' students.pk %}'>
                         <button type="button" class="btn btn-orange btn-rounded mx-0">
                             <i class="fas fa-print"></i> Печать
                         </button>

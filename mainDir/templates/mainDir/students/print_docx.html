@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+{% block content %}
+    <div class="container my-5 z-depth-1 p-3">
+        <h1 class="text-center">Печать</h1>
+        <section class="dark-grey-text">
+            <div class="row pr-lg-5">
+                <div class="col-md-5 mb-4">
+                    <div class="view">
+                        <img src="/media/img/print.png" class="img-fluid"
+                             alt="smaple image">
+                    </div>
+                </div>
+                <div class="col-md-7 d-flex align-items-center">
+                    <div>
+                        <h1>Файл успешно создан!</h1>
+                        <h2><a href="/media/generated_doc.docx">Скачать</a></h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -57,6 +57,13 @@ class StudentDetailView(DetailView):
     template_name = 'mainDir/students/detail.html'
 
 
+class StudentUpdateView(UpdateView):
+    model = Students
+    template_name = 'mainDir/students/edit.html'
+    fields = ['keySchool', 'surname', 'name', 'patronymic', 'sex', 'birthday', 'snils','contract_date',
+              'contract_number']
+
+
 def new_student(request, school_id):
     period_item = Periods.objects.get(pk=school_id)
     initial_dict = {
@@ -129,3 +136,16 @@ def upload_xlsx(request, school_id):
             value.save()
     return render(request, 'mainDir/students/upload_xlsx.html')
 
+
+def print_docx(request, pk):
+    student_item = Students.objects.filter(pk=pk)
+    for student in student_item:
+        doc = DocxTemplate("media/temp_doc.docx")
+        context = {
+            'surname': student.surname,
+            'name': student.name,
+            'patronymic': student.patronymic,
+        }
+        doc.render(context)
+        doc.save("media/generated_doc.docx")
+    return render(request, 'mainDir/students/print_docx.html')
