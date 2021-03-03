@@ -57,11 +57,11 @@ class StudentDetailView(DetailView):
     template_name = 'mainDir/students/detail.html'
 
 
-class StudentUpdateView(UpdateView):
-    model = Students
-    template_name = 'mainDir/students/edit.html'
-    fields = ['keySchool', 'surname', 'name', 'patronymic', 'sex', 'birthday', 'snils','contract_date',
-              'contract_number']
+# class StudentUpdateView(UpdateView):
+#     model = Students
+#     template_name = 'mainDir/students/edit.html'
+#     fields = ['keySchool', 'surname', 'name', 'patronymic', 'sex', 'birthday', 'snils','contract_date',
+#               'contract_number']
 
 
 def new_student(request, school_id):
@@ -86,6 +86,33 @@ def view_school(request, school_id):
         'students_item': students_item,
     }
     return render(request, 'mainDir/periods/open.html', context=context)
+
+
+def view_student(request, school_id, student_id):
+    period_item = Periods.objects.get(pk=school_id)
+    students_item = Students.objects.all().filter(keySchool=school_id)
+    student_item = students_item.get(pk=student_id)
+    context = {
+        'title': student_item.surname,
+        'period_item': period_item,
+        'students_item': students_item,
+        'student_item': student_item,
+    }
+    return render(request, 'mainDir/students/detail.html', context=context)
+
+
+def edit_student(request, school_id, student_id):
+    if request.method == "GET":
+        form = StudentsForm()
+        return render(request, 'mainDir/students/edit.html', {'form': form})
+    elif request.method == "POST":
+        form = StudentsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Saved.")
+        return render(request, 'mainDir/students/edit.html', {'form': form,
+                                                               'title': 'Добавить новый период',
+                                                               })
 
 
 def import_students(request, school_id):

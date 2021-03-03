@@ -57,8 +57,11 @@ class Students(models.Model):
     def __str__(self):
         return self.surname
 
+    # def get_absolute_url(self):
+    #     return reverse('open_student', args=[str(self.id)])
+
     def get_absolute_url(self):
-        return reverse('open_student', args=[str(self.id)])
+        return reverse('view_student', kwargs={"student_id": self.pk})
 
     class Meta:
         verbose_name = 'Студенты'

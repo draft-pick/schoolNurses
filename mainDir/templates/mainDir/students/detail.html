@@ -13,25 +13,25 @@
                 <div class="col-md-7 d-flex align-items-center">
                     <div>
 
-                        <h2>Фамилия: {{ students.surname }}</h2>
-                        <h2>Имя: {{ students.name }}</h2>
-                        <h2>Отчество: {{ students.patronymic }}</h2>
-                        <h2>Дата рождения: {{ students.birthday }}</h2>
-                        <h2>Пол: {{ students.sex }}</h2>
-                        <h2>Дата контракта: {{ students.contract_date }}</h2>
-                        <h2>Номер контракта: {{ students.contract_number }}</h2>
+                        <h2>Фамилия: {{ student_item.surname }}</h2>
+                        <h2>Имя: {{ student_item.name }}</h2>
+                        <h2>Отчество: {{ student_item.patronymic }}</h2>
+                        <h2>Дата рождения: {{ student_item.birthday }}</h2>
+                        <h2>Пол: {{ student_item.sex }}</h2>
+                        <h2>Дата контракта: {{ student_item.contract_date }}</h2>
+                        <h2>Номер контракта: {{ student_item.contract_number }}</h2>
 
-                        <a href='{% url 'edit_student' students.pk %}'>
+                        <a href='{% url 'edit_student' period_item.id student_item.id %}'>
                         <button type="button" class="btn btn-orange btn-rounded mx-0">
                             <i class="fas fa-user-edit"></i> Изменить
                         </button>
                         </a>
 
-                        <a href='{% url 'print_docx' students.pk %}'>
-                        <button type="button" class="btn btn-orange btn-rounded mx-0">
-                            <i class="fas fa-print"></i> Печать
-                        </button>
-                        </a>
+{#                        <a href='{% url 'print_docx' period_item.id st.id %}'>#}
+{#                        <button type="button" class="btn btn-orange btn-rounded mx-0">#}
+{#                            <i class="fas fa-print"></i> Печать#}
+{#                        </button>#}
+{#                        </a>#}
 
                     </div>
                 </div>

@@ -40,11 +40,11 @@
         <tbody>
         {% for st in students_item %}
             <tr>
-                <td><a href="{{ st.get_absolute_url }}">{{ st.surname }}</a></td>
-                <td><a href="{{ st.get_absolute_url }}">{{ st.name }}</a></td>
-                <td><a href="{{ st.get_absolute_url }}">{{ st.patronymic }}</a></td>
-                <td><a href="{{ st.get_absolute_url }}">{{ st.birthday }}</a></td>
-                <td><a href="{{ st.get_absolute_url }}">{{ st.contract_number }}</a></td>
+                <td><a href="{% url 'view_student' period_item.id st.id %}">{{ st.surname }}</a></td>
+                <td><a href="#">{{ st.name }}</a></td>
+                <td><a href="#">{{ st.patronymic }}</a></td>
+                <td><a href="#">{{ st.birthday }}</a></td>
+                <td><a href="#">{{ st.contract_number }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
