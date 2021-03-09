@@ -13,6 +13,7 @@ urlpatterns = [
     path('school/<int:school_id>/students/import/', import_students, name='importStudent'),
     path('school/<int:school_id>/students/import_xlsx/', upload_xlsx, name='uploadXlsx'),
     path('school/<int:school_id>/open/', view_school, name='view_school'),
+    path('school/<int:school_id>/open/print', whole_list_docx, name='whole_list_docx'),
 
     path('school/<int:school_id>/open/student/<int:student_id>', view_student, name="view_student")
     ]

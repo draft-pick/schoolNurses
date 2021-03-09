@@ -1,15 +1,16 @@
 from django.contrib import messages
-from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.db.models import Count
 from tablib import Dataset
-
+from datetime import datetime, date
 from .models import *
-from .forms import StudentsForm, InputForm
+from .forms import StudentsForm, StudentFormEdit
 from django.views.generic.edit import CreateView
 import openpyxl
 from django.views.generic import ListView, DetailView, UpdateView
 from openpyxl import Workbook, load_workbook
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate, Document
 
 from .resources import StudentsReource
 
@@ -102,17 +103,23 @@ def view_student(request, school_id, student_id):
 
 
 def edit_student(request, school_id, student_id):
-    if request.method == "GET":
-        form = StudentsForm()
-        return render(request, 'mainDir/students/edit.html', {'form': form})
-    elif request.method == "POST":
-        form = StudentsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("Saved.")
-        return render(request, 'mainDir/students/edit.html', {'form': form,
-                                                               'title': 'Добавить новый период',
-                                                               })
+    try:
+        period_item = Periods.objects.get(pk=school_id)
+        students_item = Students.objects.all().filter(keySchool=school_id)
+        person = students_item.get(pk=student_id)
+
+        if request.method == "POST":
+            person.surname = request.POST.get("surname")
+            person.name = request.POST.get("name")
+            person.patronymic = request.POST.get("patronymic")
+            person.birthday = request.POST.get("birthday")
+            person.sex = request.POST.get("sex")
+            person.save()
+            return HttpResponseRedirect("mainDir/students/detail.html")
+        else:
+            return render(request, "mainDir/students/edit.html", {"person": person})
+    except Students.DoesNotExist:
+        return HttpResponseNotFound("<h2>Person not found</h2>")
 
 
 def import_students(request, school_id):
@@ -159,7 +166,7 @@ def upload_xlsx(request, school_id):
                 data[7],
                 data[8],
                 data[9],
-                )
+            )
             value.save()
     return render(request, 'mainDir/students/upload_xlsx.html')
 
@@ -176,3 +183,21 @@ def print_docx(request, pk):
         doc.render(context)
         doc.save("media/generated_doc.docx")
     return render(request, 'mainDir/students/print_docx.html')
+
+
+def whole_list_docx(request, school_id):
+    period_item = Periods.objects.filter(pk=school_id)
+    student_item = Students.objects.all().filter(keySchool=school_id)
+    doc = DocxTemplate("media/whole_list.docx")
+    for p in period_item:
+        start_date = p.start_date.strftime('%m.%d')
+        end_date = p.end_date.strftime('%m.%d.%y')
+
+        context = {
+            'student_item': student_item,
+            'start_date': start_date,
+            'end_date': end_date,
+        }
+        doc.render(context)
+        doc.save("media/generated_whole_list.docx")
+        return render(request, 'mainDir/students/whole_list.html', context=context)
