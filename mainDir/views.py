@@ -11,7 +11,7 @@ import openpyxl
 from django.views.generic import ListView, DetailView, UpdateView
 from openpyxl import Workbook, load_workbook
 from docxtpl import DocxTemplate, Document
-
+import datetime
 from .resources import StudentsReource
 
 
@@ -103,23 +103,16 @@ def view_student(request, school_id, student_id):
 
 
 def edit_student(request, school_id, student_id):
-    try:
-        period_item = Periods.objects.get(pk=school_id)
-        students_item = Students.objects.all().filter(keySchool=school_id)
-        person = students_item.get(pk=student_id)
-
-        if request.method == "POST":
-            person.surname = request.POST.get("surname")
-            person.name = request.POST.get("name")
-            person.patronymic = request.POST.get("patronymic")
-            person.birthday = request.POST.get("birthday")
-            person.sex = request.POST.get("sex")
-            person.save()
-            return HttpResponseRedirect("mainDir/students/detail.html")
-        else:
-            return render(request, "mainDir/students/edit.html", {"person": person})
-    except Students.DoesNotExist:
-        return HttpResponseNotFound("<h2>Person not found</h2>")
+    period_item = Periods.objects.get(pk=school_id)
+    student_item = Students.objects.get(pk=student_id)
+    form = StudentFormEdit(instance=student_item)
+    if request.method == 'POST':
+        form = StudentFormEdit(request.POST, instance=student_item)
+        if form.is_valid():
+            form.save()
+            return redirect('view_student', school_id, student_id, )
+    context = {'form': form, 'period_item': period_item, 'student_item': student_item, }
+    return render(request, 'mainDir/students/edit.html', context=context)
 
 
 def import_students(request, school_id):
@@ -171,18 +164,24 @@ def upload_xlsx(request, school_id):
     return render(request, 'mainDir/students/upload_xlsx.html')
 
 
-def print_docx(request, pk):
-    student_item = Students.objects.filter(pk=pk)
+def print_docx(request, school_id, student_id):
+    period_item = Periods.objects.filter(pk=school_id)
+    student_item = Students.objects.filter(pk=student_id)
     for student in student_item:
-        doc = DocxTemplate("media/temp_doc.docx")
-        context = {
-            'surname': student.surname,
-            'name': student.name,
-            'patronymic': student.patronymic,
-        }
-        doc.render(context)
-        doc.save("media/generated_doc.docx")
-    return render(request, 'mainDir/students/print_docx.html')
+        for p in period_item:
+            start_date = p.start_date.strftime('%d.%m')
+            end_date = p.end_date.strftime('%d.%m.%Y')
+            doc = DocxTemplate("media/temp_doc.docx")
+            context = {
+                'start_date': start_date,
+                'end_date': end_date,
+                'surname': student.surname,
+                'name': student.name,
+                'patronymic': student.patronymic,
+            }
+            doc.render(context)
+            doc.save("media/generated_doc.docx")
+            return render(request, 'mainDir/students/detail.html', context=context)
 
 
 def whole_list_docx(request, school_id):
@@ -190,8 +189,8 @@ def whole_list_docx(request, school_id):
     student_item = Students.objects.all().filter(keySchool=school_id)
     doc = DocxTemplate("media/whole_list.docx")
     for p in period_item:
-        start_date = p.start_date.strftime('%m.%d')
-        end_date = p.end_date.strftime('%m.%d.%y')
+        start_date = p.start_date.strftime('%d.%m')
+        end_date = p.end_date.strftime('%d.%m.%y')
 
         context = {
             'student_item': student_item,

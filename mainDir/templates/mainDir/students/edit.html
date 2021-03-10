@@ -10,40 +10,14 @@
                     </div>
                 </div>
                 <div class="col-md-7 d-flex align-items-center">
-                    <form method="POST">
+                    <form action="" method="post">
                         {% csrf_token %}
-                        <p>
-                            <label>Фамилия</label><br>
-                            <input type="text" name="surname" value="{{ person.surname }}"/>
-                        </p>
-                        <p>
-                            <label>Имя</label><br>
-                            <input type="text" name="name" value="{{ person.name }}"/>
-                        </p>
-                        <p>
-                            <label>Отчество</label><br>
-                            <input type="text" name="patronymic" value="{{ person.patronymic }}"/>
-                        </p>
-                        <p>
-                            <label>Дата рождения</label><br>
-                            <input type="date" name="patronymic" value="{{ person.birthday }}"/>
-                        </p>
-                        <p>
-                            <label for="sex">Пол</label><br>
-                            <select name="sex" id="sex">
-                                <option active disabled value="">{{ person.sex }}</option>
-                                <option value="Женский">Женский</option>
-                                <option value="Мужской">Мужской</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>Введите возраст</label><br>
-                            <input type="number" name="age" value="{{ person.age }}"/>
-                        </p>
-                        <input type="submit" value="Сохранить">
+                        <table>
+                            {{ form }}
+                        </table>
+                        <input type="submit" value="Сохранить"/>
                     </form>
                 </div>
             </div>
-        </section>
-    </div>
+        </section></div>
 {% endblock content %}
