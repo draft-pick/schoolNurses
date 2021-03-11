@@ -182,7 +182,7 @@ def print_docx(request, school_id, student_id):
             }
             doc.render(context)
             doc.save("media/generated_doc.docx")
-            return FileResponse(open('media/generated_doc.docx', 'rb'), as_attachment=True)
+            return FileResponse(open('media/generated_doc.docx', 'rb'))
 
 
 def akt_job_docx(request, school_id, student_id):
