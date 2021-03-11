@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
@@ -182,7 +184,9 @@ def print_docx(request, school_id, student_id):
             }
             doc.render(context)
             doc.save("media/generated_doc.docx")
-            return FileResponse(open('media/generated_doc.docx', 'rb'))
+            response = HttpResponse(content_type="application/force-download")
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename('media/generated_doc.docx')
+            return response
 
 
 def akt_job_docx(request, school_id, student_id):
