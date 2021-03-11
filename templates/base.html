@@ -8,22 +8,17 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Podkova:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
     <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.19.1.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+    <link rel="stylesheet" href="{% static 'css/mdbootstrap/mdb.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdbootstrap/complited.min.css' %}">
+    <!-- OWLCarousel -->
+    <link rel="stylesheet" href="{% static 'css/owlcarousel/owl.carousel.css' %}">
     <!-- Custom CSS -->
-{#    <script type="text/javascript" src="/admin/jsi18n/"></script>#}
-    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
-
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {{ form.media }}
 
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>
@@ -84,16 +79,14 @@
 
 
 <!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery/popper.min.js' %}"></script>
 <!-- Bootstrap core JavaScript -->
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-{#<script type="text/javascript" src="{% static 'js/main.js' %}"></script>#}
+<script type="text/javascript" src="{% static 'js/mdbootstrap/mdb.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/owlcarousel/owl.carousel.js' %}"></script>
+
 </body>
 </html>

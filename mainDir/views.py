@@ -13,6 +13,7 @@ from openpyxl import Workbook, load_workbook
 from docxtpl import DocxTemplate, Document
 import datetime
 from .resources import StudentsReource
+from django.http import HttpResponse, FileResponse
 
 
 def home(request):
@@ -181,7 +182,53 @@ def print_docx(request, school_id, student_id):
             }
             doc.render(context)
             doc.save("media/generated_doc.docx")
-            return render(request, 'mainDir/students/detail.html', context=context)
+            return FileResponse(open('media/generated_doc.docx', 'rb'), as_attachment=True)
+
+
+def akt_job_docx(request, school_id, student_id):
+    period_item = Periods.objects.filter(pk=school_id)
+    student_item = Students.objects.filter(pk=student_id)
+    for student in student_item:
+        for p in period_item:
+            start_date = p.start_date.strftime('%d.%m')
+            end_date = p.end_date.strftime('%d.%m.%Y')
+            doc = DocxTemplate("media/tpl/akt_job_tpl.docx")
+            contract_date = student.contract_date.strftime('%d.%m.%Y')
+            context = {
+                'start_date': start_date,
+                'end_date': end_date,
+                'surname': student.surname,
+                'name': student.name,
+                'patronymic': student.patronymic,
+                'contract_date': contract_date,
+                'contract_number': student.contract_number,
+            }
+            doc.render(context)
+            doc.save("media/output/generated_akt_job.docx")
+            return FileResponse(open('media/output/generated_akt_job.docx', 'rb'), as_attachment=True)
+
+
+def certification_docx(request, school_id, student_id):
+    period_item = Periods.objects.filter(pk=school_id)
+    student_item = Students.objects.filter(pk=student_id)
+    for student in student_item:
+        for p in period_item:
+            start_date = p.start_date.strftime('%d.%m')
+            end_date = p.end_date.strftime('%d.%m.%Y')
+            doc = DocxTemplate("media/tpl/certification_tpl.docx")
+            contract_date = student.contract_date.strftime('%d.%m.%Y')
+            context = {
+                'start_date': start_date,
+                'end_date': end_date,
+                'surname': student.surname,
+                'name': student.name,
+                'patronymic': student.patronymic,
+                'contract_date': contract_date,
+                'contract_number': student.contract_number,
+            }
+            doc.render(context)
+            doc.save("media/output/generated_certification.docx")
+            return FileResponse(open('media/output/generated_certification.docx', 'rb'), as_attachment=True)
 
 
 def whole_list_docx(request, school_id):

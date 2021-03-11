@@ -4,15 +4,14 @@
     <div class="container my-5 z-depth-1">
         <section class="dark-grey-text">
             <div class="row pr-lg-5">
-                <div class="col-md-5 mb-4">
+                <div class="col-md-4 mb-4">
                     <div class="view">
                         <img src="/media/img/open.png" class="img-fluid"
                              alt="smaple image">
                     </div>
                 </div>
-                <div class="col-md-7 d-flex align-items-center">
+                <div class="col-md-4 d-flex align-items-center">
                     <div>
-
                         <h2>Фамилия: {{ student_item.surname }}</h2>
                         <h2>Имя: {{ student_item.name }}</h2>
                         <h2>Отчество: {{ student_item.patronymic }}</h2>
@@ -20,49 +19,31 @@
                         <h2>Пол: {{ student_item.sex }}</h2>
                         <h2>Дата контракта: {{ student_item.contract_date }}</h2>
                         <h2>Номер контракта: {{ student_item.contract_number }}</h2>
-
-                        <a href='{% url 'edit_student' period_item.id student_item.id %}'>
-                            <button type="button" class="btn btn-orange btn-rounded mx-0">
-                                <i class="fas fa-user-edit"></i> Изменить
-                            </button>
-                        </a>
-
-                        <a href='{% url 'print_docx' period_item.id student_item.id %}'>
-                            <button type="button" class="btn btn-orange btn-rounded mx-0">
-                                <i class="fas fa-print"></i> Печать
-                            </button>
-                        </a>
-                        <!-- Button trigger modal -->
-
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            <a href="{% url 'print_docx' period_item.id student_item.id %}">Launch demo modal</a>
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                             aria-hidden="true">
-
-                            <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-
-
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Файл успешно создан</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h2><a href="/media/generated_doc.docx">Скачать</a></h2>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <a href='{% url 'edit_student' period_item.id student_item.id %}'>
+                        <button type="button" class="btn btn-orange btn-rounded mx-0">
+                            <i class="fas fa-user-edit"></i> Редактировать
+                        </button>
+                    </a>
+                    <hr>
+                    <a href='{% url 'print_docx' period_item.id student_item.id %}'>
+                        <button type="button" class="btn btn-purple btn-rounded mx-0">
+                            <i class="fas fa-print"></i> Печать "Справка-допуск"
+                        </button>
+                    </a>
+                    <a href='{% url 'akt_job_docx' period_item.id student_item.id %}'>
+                        <button type="button" class="btn btn-purple btn-rounded mx-0">
+                            <i class="fas fa-print"></i> Печать "Акт выполненных работ"
+                        </button>
+                    </a>
+
+                    <a href='{% url 'certification_docx' period_item.id student_item.id %}'>
+                        <button type="button" class="btn btn-purple btn-rounded mx-0">
+                            <i class="fas fa-print"></i> Печать "Сертификат"
+                        </button>
+                    </a>
                 </div>
             </div>
         </section>
