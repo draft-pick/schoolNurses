@@ -16,6 +16,7 @@ from docxtpl import DocxTemplate, Document
 import datetime
 from .resources import StudentsReource
 from django.http import HttpResponse, FileResponse
+import mimetypes
 
 
 def home(request):
@@ -184,8 +185,16 @@ def print_docx(request, school_id, student_id):
             }
             doc.render(context)
             doc.save("media/generated_doc.docx")
-            response = HttpResponse(content_type="application/force-download")
-            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename('media/generated_doc.docx')
+            fp = open('media/generated_doc.docx', "rb")
+            response = HttpResponse(fp.read())
+            fp.close()
+            file_type = mimetypes.guess_type('media/generated_doc.docx')
+            if file_type is None:
+                file_type = 'application/octet-stream'
+            response['Content-Type'] = file_type
+            response['Content-Length'] = str(os.stat('media/generated_doc.docx').st_size)
+            response['Content-Disposition'] = "attachment; filename=generated_doc.docx"
+
             return response
 
 

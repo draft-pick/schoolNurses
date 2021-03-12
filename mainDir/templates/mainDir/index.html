@@ -2,49 +2,33 @@
 {% include 'base.html' %}
 {% load sitetree %}
 {% block content %}
-    <a href="{% url 'period_add' %}">
-        <button type="button" class="btn btn-danger btn-rounded"><i class="fas fa-plus-circle"></i> Открыть новый период
-            обучения
-        </button>
-    </a>
-        <a href="{% url 'period_add' %}">
-        <button type="button" class="btn btn-danger btn-rounded"><i class="fas fa-plus-circle"></i> Архив
-        </button>
-    </a>
-    <div class="text-center mt-3">
-        <button type="button" class="btn btn-info btn-rounded">Активные периоды</button>
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-4 mt-2 mb-4">
+            <a href="{% url 'period_add' %}">
+                <button type="button" class="btn btn-danger btn-rounded"><i class="fas fa-plus-circle"></i> Открыть
+                    новый период
+                    обучения
+                </button>
+            </a>
+        </div>
     </div>
     <div class="col-12">
         <div class="row">
             {% for p in periods %}
-                <div class="col-12 col-md-4">
-                    <a href="{{ p.get_absolute_url }}">
-                        <div class="card">
-                            <div class="view overlay">
-                                <img class="card-img-top"
-                                     src="/media/img/school.png"
-                                     alt="Card image cap">
-                                <div class="mask rgba-white-slight"></div>
-                            </div>
-                            <div class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3"><i
-                                    class="fas fa-chevron-right pl-1"></i></div>
-                            <div class="card-body">
-                                <h1 class="card-title">{{ p.title }}</h1>
-                            </div>
-                            <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
-                                    <h1>
-                                        <li class="list-inline-item pr-2 white-text">
-                                            <i class="fas fa-calendar-alt"></i>
-                                            {{ p.start_date|date:"d.m" }} - {{ p.end_date|date:"d.m.y" }}
-                                        </li>
-                                    </h1>
-{#                                    <li class="list-inline-item pr-2">#}
-{#                                        <div class="white-text"><i class="fas fa-users"></i>#}
-{#                                            {% for count in students_count %}#}
-{#                                                {{ count.number_of_period }}#}
-{#                                            {% endfor %}#}
-{#                                        </div>#}
-{#                                    </li>#}
+                <div class="col-12 col-md-4 mb-3">
+                    <a href="{{ p.get_absolute_url }}" class="card hoverable">
+                        <div class="card-body">
+                            <div class="media">
+              <span class="card-img-100 d-inline-flex justify-content-center align-items-center rounded-circle grey lighten-3 mr-4">
+                <i class="fas fa-graduation-cap fa-2x text-info"></i>
+              </span>
+                                <div class="media-body">
+                                    <h2 class="dark-grey-text mb-3">{{ p.title }}</h2>
+                                    <p class="font-weight-light text-muted mb-0">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        {{ p.start_date|date:"d.m" }} - {{ p.end_date|date:"d.m.y" }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -52,6 +36,12 @@
             {% endfor %}
         </div>
     </div>
-    <hr>
-    {#{% sitetree_menu from "leftMenu" include "trunk" template "sitetree/menu.html" %}#}
+    <div class="row">
+        <div class="col-12 col-md-7 offset-md-5 mt-2 mb-4">
+            <a href="{% url 'period_add' %}">
+                <button type="button" class="btn btn-warning btn-rounded"><i class="fas fa-plus-circle"></i> Архив
+                </button>
+            </a>
+        </div>
+    </div>
 {% endblock %}
