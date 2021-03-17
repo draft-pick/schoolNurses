@@ -21,9 +21,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('main.url')),
+    path('', include('mainDir.url')),
     path('school/', include('school.url')),
-    path('mainDir/', include('mainDir.url')),
+    # path('mainDir/', include('mainDir.url')),
 ]
 
 if settings.DEBUG:

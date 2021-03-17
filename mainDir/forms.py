@@ -3,7 +3,7 @@ from .models import *
 
 
 class StudentsForm(forms.Form):
-    keySchool = forms.CharField(max_length=300, label='Фамилия')
+    keySchool = forms.CharField(max_length=300, label='Период')
     surname = forms.CharField(max_length=300, label='Фамилия')
     name = forms.CharField(max_length=300, label='Имя')
     patronymic = forms.CharField(max_length=300, label='Отчество')

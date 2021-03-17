@@ -115,7 +115,11 @@ def edit_student(request, school_id, student_id):
         if form.is_valid():
             form.save()
             return redirect('view_student', school_id, student_id, )
-    context = {'form': form, 'period_item': period_item, 'student_item': student_item, }
+    context = {
+               'title': 'Изменить - ' + student_item.surname,
+               'form': form,
+               'period_item': period_item,
+               'student_item': student_item, }
     return render(request, 'mainDir/students/edit.html', context=context)
 
 
@@ -194,7 +198,6 @@ def print_docx(request, school_id, student_id):
             response['Content-Type'] = file_type
             response['Content-Length'] = str(os.stat('media/generated_doc.docx').st_size)
             response['Content-Disposition'] = "attachment; filename=generated_doc.docx"
-
             return response
 
 
@@ -218,7 +221,16 @@ def akt_job_docx(request, school_id, student_id):
             }
             doc.render(context)
             doc.save("media/output/generated_akt_job.docx")
-            return FileResponse(open('media/output/generated_akt_job.docx', 'rb'), as_attachment=True)
+            fp = open('media/output/generated_akt_job.docx', "rb")
+            response = HttpResponse(fp.read())
+            fp.close()
+            file_type = mimetypes.guess_type('media/output/generated_akt_job.docx')
+            if file_type is None:
+                file_type = 'application/octet-stream'
+            response['Content-Type'] = file_type
+            response['Content-Length'] = str(os.stat('media/output/generated_akt_job.docx').st_size)
+            response['Content-Disposition'] = "attachment; filename=generated_akt_job.docx"
+            return response
 
 
 def certification_docx(request, school_id, student_id):
@@ -241,7 +253,16 @@ def certification_docx(request, school_id, student_id):
             }
             doc.render(context)
             doc.save("media/output/generated_certification.docx")
-            return FileResponse(open('media/output/generated_certification.docx', 'rb'), as_attachment=True)
+            fp = open('media/output/generated_certification.docx', "rb")
+            response = HttpResponse(fp.read())
+            fp.close()
+            file_type = mimetypes.guess_type('media/output/generated_certification.docx')
+            if file_type is None:
+                file_type = 'application/octet-stream'
+            response['Content-Type'] = file_type
+            response['Content-Length'] = str(os.stat('media/output/generated_certification.docx').st_size)
+            response['Content-Disposition'] = "attachment; filename=generated_certification.docx"
+            return response
 
 
 def whole_list_docx(request, school_id):

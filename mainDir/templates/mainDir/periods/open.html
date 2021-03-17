@@ -41,10 +41,10 @@
         {% for st in students_item %}
             <tr>
                 <td><a href="{% url 'view_student' period_item.id st.id %}">{{ st.surname }}</a></td>
-                <td><a href="#">{{ st.name }}</a></td>
-                <td><a href="#">{{ st.patronymic }}</a></td>
-                <td><a href="#">{{ st.birthday }}</a></td>
-                <td><a href="#">{{ st.contract_number }}</a></td>
+                <td><a href="{% url 'view_student' period_item.id st.id %}">{{ st.name }}</a></td>
+                <td><a href="{% url 'view_student' period_item.id st.id %}">{{ st.patronymic }}</a></td>
+                <td><a href="{% url 'view_student' period_item.id st.id %}">{{ st.birthday }}</a></td>
+                <td><a href="{% url 'view_student' period_item.id st.id %}">{{ st.contract_number }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
