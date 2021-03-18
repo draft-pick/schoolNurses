@@ -84,6 +84,7 @@ DATABASES = {
         'PASSWORD': 'ilovethisgame',
         'HOST': '192.168.77.91',
         'PORT': '3306',
+        'OPTIONS': {'charset': 'utf8mb4'}
     }
 }
 
