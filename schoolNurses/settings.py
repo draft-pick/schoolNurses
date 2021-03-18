@@ -83,8 +83,7 @@ DATABASES = {
         'USER': 'draftpick',
         'PASSWORD': 'ilovethisgame',
         'HOST': '192.168.77.91',
-        'PORT': '80',
-        'OPTIONS': {"init_command": "SET storage_engine=MyISAM"},
+        'PORT': '3306',
     }
 }
 
