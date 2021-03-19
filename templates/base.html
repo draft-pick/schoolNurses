@@ -68,15 +68,14 @@
         {% block content %}
             {% sitetree_breadcrumbs from "mainMenu" template "sitetree/breadcrumbs_bootstrap4.html" %}
         {% endblock %}
-
-        {% else %}
+{% else %}
         <div class="container">
             {% block login %}
+                Доступ запрещен. <a href="{% url 'login' %}">Авторизироваться</a>
             {% endblock %}
         </div>
     </div>
 {% endif %}
-
 
 <!-- JQuery -->
 <script type="text/javascript" src="{% static 'js/jquery/jquery.min.js' %}"></script>
