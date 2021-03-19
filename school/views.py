@@ -7,15 +7,15 @@ from openpyxl import Workbook, load_workbook
 from docxtpl import DocxTemplate
 
 
-def home(request):
-    periods = Period.objects.filter(is_active=1)
-    students_count = Period.objects.annotate(number_of_period=Count('period'))
-    context = {
-        'periods': periods,
-        'title': 'Главная страница',
-        'students_count': students_count,
-    }
-    return render(request, 'school/index.html', context=context)
+# def home(request):
+#     periods = Period.objects.filter(is_active=1)
+#     students_count = Period.objects.annotate(number_of_period=Count('period'))
+#     context = {
+#         'periods': periods,
+#         'title': 'Главная страница',
+#         'students_count': students_count,
+#     }
+#     return render(request, 'school/index.html', context=context)
 
 
 class PeriodCreateView(CreateView):

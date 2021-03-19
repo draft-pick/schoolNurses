@@ -4,7 +4,7 @@ from django.contrib.auth import views
 from .views import *
 
 urlpatterns = [
-    path('', home, name='home'),
+    # path('', home, name='home'),
     path('period/new/', PeriodCreateView.as_view(), name='period_new'),
     path('period/<int:pk>/', PeriodDetailView.as_view(), name='period_detail'),
     path('period/open/<int:period_id>/', view_period, name='view_period'),
