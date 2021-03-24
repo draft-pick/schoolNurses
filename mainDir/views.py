@@ -74,10 +74,13 @@ def new_student(request, school_id):
     initial_dict = {
         "keySchool": school_id,
     }
-    form = StudentsForm(request.POST or None, initial=initial_dict)
+    form_student = StudentsForm(request.POST or None, initial=initial_dict)
+    if form_student.is_valid():
+        form_student.save()
+        return redirect('view_school', school_id)
     context = {
         'period_item': period_item,
-        'form': form,
+        'form_student': form_student,
     }
     return render(request, 'mainDir/students/create.html', context)
 
@@ -114,7 +117,7 @@ def edit_student(request, school_id, student_id):
         form = StudentFormEdit(request.POST, instance=student_item)
         if form.is_valid():
             form.save()
-            return redirect('view_student', school_id, student_id, )
+            return redirect('view_student', school_id, student_id,)
     context = {
                'title': 'Изменить - ' + student_item.surname,
                'form': form,

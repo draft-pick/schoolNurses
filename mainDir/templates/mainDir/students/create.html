@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% include 'base.html' %}
 {% block content %}
         <h1>Создать новую запись</h1>
         <form action="" method="post">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Создать период"/>
+            {{ form_student.as_p }}
+            <input type="submit" value="Создать новую запись"/>
         </form>
 {% endblock %}
